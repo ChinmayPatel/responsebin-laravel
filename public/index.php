@@ -46,4 +46,5 @@ $app = require_once __DIR__.'/../bootstrap/start.php';
 |
 */
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: *');
 $app->run();
