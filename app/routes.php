@@ -13,13 +13,12 @@
 
 Route::get('/', function()
 {
-	$response_array = parse_information('GET');
-	return json_encode($response_array); 
+	return parse_information('GET');
 });
 
 Route::post('/', function()
 {
-	return parse_information('GET');
+	return parse_information('POST');
 });
 
 Route::put('/', function()
