@@ -19,26 +19,22 @@ Route::get('/', function()
 
 Route::post('/', function()
 {
-	$response_array = parse_information('GET');
-	return json_encode($response_array); 
+	return parse_information('GET');
 });
 
 Route::put('/', function()
 {
-	$response_array = parse_information('PUT');
-	return json_encode($response_array); 
+	return parse_information('PUT');
 });
 
 Route::delete('/', function()
 {
-	$response_array = parse_information('DELETE');
-	return json_encode($response_array); 
+	return parse_information('DELETE');
 });
 
 Route::patch('/', function()
 {
-	$response_array = parse_information('PATCH');
-	return json_encode($response_array); 
+	return parse_information('PATCH');
 });
 
 
@@ -46,6 +42,16 @@ function parse_information( $method ){
 	$response_array = array();
 	$response_array['method'] = $method;
 	$response_array['headeres'] = Request::header();
+	$response_array['url_params'] = $_GET;
+	$response_array['post_params'] = $_POST;
+
 	$response_array['data'] = Input::all();
-	return $response_array;
+	foreach ($response_array['url_params'] as $key => $value) {
+		unset( $response_array['data'][$key]);
+	}
+	foreach ($response_array['post_params'] as $key => $value) {
+		unset( $response_array['data'][$key]);
+	}
+
+	return Response::json($response_array);
 }
